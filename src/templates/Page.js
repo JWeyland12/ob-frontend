@@ -4,7 +4,7 @@ import Layout from "../components/layout.js"
 import SEO from "../components/seo"
 
 const PageTemplate = ({ data }) => (
-  <Layout type="site-content-pages">
+  <Layout>
     <SEO
       title={data.wordpressPage.title}
       description={data.wordpressPage.excerpt}
