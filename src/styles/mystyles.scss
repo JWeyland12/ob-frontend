@@ -49,6 +49,9 @@ $footer-color: true;
 ---------------------------*/
 
 // Stick the footer to the bottom of the page
+body {
+  font-size: 1.25em;
+}
 .site {
   display: flex;
   min-height: 100vh;
@@ -74,4 +77,15 @@ $footer-color: true;
 // Margins for features icons
 #feature-icon {
   margin-right: 1.5rem;
+}
+.text-wrap {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  word-break: break-all;
+  word-break: break-word;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
 }

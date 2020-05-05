@@ -21,32 +21,27 @@ const Posts = ({ data }) => (
     <Section>
       <Container>
         <SEO title="Posts" keywords={[`gatsby`, `application`, `react`]} />
-        <ul style={{ listStyle: "none" }}>
+          <Title isSpaced>Recent Posts</Title>
           {data.allWordpressPost.edges.map(post => (
-            <li style={{ padding: "20px 0", borderBottom: "1px solid #ccc" }}>
-              <Link
-                to={`/post/${post.node.slug}`}
-                style={{ display: "flex", color: "black", textDecoration: "none" }}
-              >
-                <Img
-                  sizes={post.node.featured_media.localFile.childImageSharp.sizes}
-                  alt={post.node.title}
-                  style={{ width: "25%", marginRight: 20 }}
-                />
-                <div style={{ width: "75%" }}>
-                  <h3
-                    dangerouslySetInnerHTML={{ __html: post.node.title }}
-                    style={{ marginBottom: 0 }}
-                  />
-                  <p style={{ margin: 0, color: "grey" }}>
-                    Written by {post.node.author.name} on {post.node.date}
-                  </p>
-                  <div dangerouslySetInnerHTML={{ __html: post.node.excerpt }} />
-                </div>
+            <Box>
+               <Link
+                    to={`/post/${post.node.slug}`}
+                    style={{ display: "flex", color: "black", textDecoration: "none" }}
+                  >
+              <Columns isCentered>
+                <Column isSize='1/3'>
+                    <Img sizes={post.node.featured_media.localFile.childImageSharp.sizes} />
+                </Column>
+                <Column>
+                  <h3 dangerouslySetInnerHTML={{ __html: post.node.title }} />
+                  <p>Written by {post.node.author.name} on {post.node.date}</p>
+                  <p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: post.node.excerpt.substr(0, 500) }} />
+                </Column>
+              </Columns>
               </Link>
-            </li>
+            </Box>
           ))}
-        </ul>
+        
       </Container>
     </Section>
   </Layout>
@@ -69,7 +64,7 @@ export const query = graphql`
           featured_media {
             localFile {
               childImageSharp {
-                sizes(maxWidth: 1200){
+                sizes(maxWidth: 512){
                   ...GatsbyImageSharpSizes
                 }
               }
