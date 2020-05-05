@@ -13,6 +13,7 @@ import {
   Column,
   Columns,
   Box,
+  Card,
 } from "bloomer"
 
 
@@ -24,20 +25,22 @@ const Posts = ({ data }) => (
           <Title isSpaced>Recent Posts</Title>
           {data.allWordpressPost.edges.map(post => (
             <Box>
-               <Link
-                    to={`/post/${post.node.slug}`}
-                    style={{ display: "flex", color: "black", textDecoration: "none" }}
-                  >
-              <Columns isCentered>
-                <Column isSize='1/3'>
+              <Link
+                to={`/post/${post.node.slug}`}
+                style={{ color: "black", textDecoration: "none" }}
+               >
+                <Container>
+                  <h3 style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: post.node.title }} />
+                  <p style={{ marginBottom: "1em", fontSize: ".9em", color: "grey" }}>Written by {post.node.author.name} on {post.node.date}</p>
+                </Container>
+                <Columns isCentered>
+                  <Column isSize='1/4'>
                     <Img sizes={post.node.featured_media.localFile.childImageSharp.sizes} />
-                </Column>
-                <Column>
-                  <h3 dangerouslySetInnerHTML={{ __html: post.node.title }} />
-                  <p>Written by {post.node.author.name} on {post.node.date}</p>
-                  <p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: post.node.excerpt.substr(0, 500) }} />
-                </Column>
-              </Columns>
+                  </Column>
+                  <Column>
+                    <p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: post.node.excerpt.substr(0, 200) + ' [...]' }} />
+                  </Column>
+                </Columns>
               </Link>
             </Box>
           ))}
