@@ -54,11 +54,18 @@ export default class navbar extends Component {
                 Home
               </Link>
               <Link
-                to="/page-2"
+                to="/posts"
                 activeClassName="is-active"
                 className="navbar-link nav-item is-arrowless"
               >
-                Page 2
+                Posts
+              </Link>
+              <Link
+                to="/about"
+                activeClassName="is-active"
+                className="navbar-link nav-item is-arrowless"
+              >
+                About
               </Link>
               {/* Github download button */}
               <NavbarItem>
