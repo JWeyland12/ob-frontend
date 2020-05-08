@@ -29,7 +29,7 @@ const BlogPostTemplate = ({ data }) => (
       <Container>
         <Columns>
           <Column isSize='2/3'>
-            <h1>{data.wordpressPost.title}</h1>
+            <h1 style={{ marginBottom: 0 }} >{data.wordpressPost.title}</h1>
             <p>
               Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
             </p>
@@ -43,23 +43,22 @@ const BlogPostTemplate = ({ data }) => (
               dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
             />
           </Column>
-            <Column hasTextAlign='centered' isOffset='8' isColor='danger'>
-            <FaYoutube isSize="medium" className="fa-2x" style={{ margin: '10px', color: '#ff0000' }} />
-            <FaFacebook isSize="medium" className="fa-2x" style={{ margin: '10px', color: '#3b5998' }} />
-            <FaPinterest isSize="medium" className="fa-2x" style={{ margin: '10px', color: '#b31217' }} />
-            <FaTwitter isSize="medium" className="fa-2x" style={{ margin: '10px', color: '#55acee' }} />
-            <FaInstagram isSize="medium" className="fa-2x" style={{ margin: '10px', color: '#f10176' }} />
-              <Box>
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-              </Box>
-              <Box>
-                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
-              </Box>
-              <Box>
-                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur.
-              </Box>
-
-            </Column>
+          <Column hasTextAlign='centered' isOffset='8' isColor='danger'>
+            <FaYoutube isSize="medium" className="post-icons fa-2x" style={{ color: '#ff0000' }} />
+            <FaFacebook isSize="medium" className="post-icons fa-2x" style={{ color: '#3b5998' }} />
+            <FaPinterest isSize="medium" className="post-icons fa-2x" style={{ color: '#b31217' }} />
+            <FaTwitter isSize="medium" className="post-icons fa-2x" style={{ color: '#55acee' }} />
+            <FaInstagram isSize="medium" className="post-icons fa-2x" style={{ color: '#f10176' }} />
+            <Box>
+              Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
+            </Box>
+            <Box>
+              Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+            </Box>
+            <Box>
+              Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur.
+            </Box>
+          </Column>
         </Columns>
       </Container>
     </Section>

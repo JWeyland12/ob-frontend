@@ -48,10 +48,10 @@ $footer-color: true;
 * Custom styles go here
 ---------------------------*/
 
-// Stick the footer to the bottom of the page
 body {
   font-size: 1.15em;
 }
+// Stick the footer to the bottom of the page
 .site {
   display: flex;
   min-height: 100vh;
@@ -77,6 +77,10 @@ body {
 // Margins for features icons
 #feature-icon {
   margin-right: 1.5rem;
+}
+// Margins for Posts page icons
+.post-icons {
+  margin: 10px;
 }
 .text-wrap {
   overflow-wrap: break-word;
