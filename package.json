@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "None",
   "dependencies": {
+    "apollo-boost": "^0.4.7",
     "bloomer": "0.6.5",
     "bulma": "0.8.2",
     "gatsby": "2.21.9",
@@ -19,9 +20,12 @@
     "gatsby-source-filesystem": "2.3.0",
     "gatsby-source-wordpress": "^3.3.0",
     "gatsby-transformer-sharp": "2.5.0",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
     "node-sass": "4.14.0",
     "prop-types": "15.7.2",
     "react": "16.13.0",
+    "react-apollo": "^3.1.5",
     "react-dom": "16.13.0",
     "react-helmet": "5.2.1",
     "react-icons": "^3.10.0"
