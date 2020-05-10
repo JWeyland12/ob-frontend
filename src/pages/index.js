@@ -1,11 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link, graphql } from "gatsby"
-//////
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
 import PostsSearch from '../search/PostsSearch';
-/////
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import Hero from "../components/hero"
 import {
   Section,
   Container,
@@ -16,19 +15,9 @@ import {
   Icon,
 } from "bloomer"
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
-import Hero from "../components/hero"
-
-const client = new ApolloClient({
-  // Change this to the URL of your WordPress site.
-  uri: "https://psychopsis.com/graphql"
-});
-
 const IndexPage = ({ data }) => {
   const page = data.site.siteMetadata
   return (
-    <ApolloProvider client={client}>
       <Layout>
         <SEO title="Home" />
         <Hero siteTitle={page.title} description={page.description} />
@@ -92,9 +81,11 @@ const IndexPage = ({ data }) => {
             </Column>
           </Container>
         </Section>
+        {/* Adds search functionality to Gatsby.  Dependent on configuration files in
+        src/apollo and src/seach - as well as the Apollo exports in gatsby-browser.js and 
+        gatsby-ssr.js. */}
         <PostsSearch />
       </Layout>
-    </ApolloProvider>
   )
 }
 

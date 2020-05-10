@@ -8,3 +8,6 @@
 
 // Bulma Framework global scss
 import "./src/styles/mystyles.scss"
+
+// Apollo client
+export { wrapRootElement } from './src/apollo/wrap-root-element';
