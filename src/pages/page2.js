@@ -14,7 +14,7 @@ import {
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const About = () => (
+const SecondPage = () => (
   <Layout>
     <SEO title="Page two" />
     <Section className="has-background-white">
@@ -38,4 +38,4 @@ const About = () => (
   </Layout>
 )
 
-export default About
+export default SecondPage

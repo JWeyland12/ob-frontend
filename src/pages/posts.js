@@ -44,7 +44,6 @@ const Posts = ({ data }) => (
               </Link>
             </Box>
           ))}
-        
       </Container>
     </Section>
   </Layout>

@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
 import PostsList from './PostsList';
+import SEO from "../components/seo"
+import {
+  Section,
+  Container,
+  Title,
+  Subtitle,
+  Button,
+  Icon,
+  Column,
+  Columns,
+  Box,
+  Card,
+} from "bloomer"
 
 class PostsSearch extends Component {
   state = {
@@ -31,7 +44,11 @@ class PostsSearch extends Component {
         </form>
         {searchQuery &&
           <div className="results">
-            <PostsList searchQuery={searchQuery} />
+            {/* <Section>
+              <Container> */}
+                <PostsList searchQuery={searchQuery} />
+              {/* </Container>
+            </Section> */}
           </div>
         }
       </div>

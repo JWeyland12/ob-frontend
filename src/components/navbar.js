@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
+import FaYoutube from 'react-icons/fa';
 
 import {
   Navbar,
@@ -67,19 +68,13 @@ export default class navbar extends Component {
               >
                 About
               </Link>
-              {/* Github download button */}
-              <NavbarItem>
-                <Button
-                  href="https://github.com/zlutfi/gatsby-starter-bloomer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="is-rounded"
-                  isSize="small"
-                >
-                  <span>Download on Github</span>
-                  <Icon className="fab fa-github fa-sm" />
-                </Button>
-              </NavbarItem>
+              <Link
+                to="/search"
+                activeClassName="is-active"
+                className="navbar-link nav-item is-arrowless"
+              >
+                            <Icon hasTextColor="white" className="fa fa-search 2x"></Icon>
+              </Link>
             </NavbarEnd>
           </NavbarMenu>
         </Container>

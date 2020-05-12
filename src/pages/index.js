@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Link, graphql } from "gatsby"
-import PostsSearch from '../search/PostsSearch';
+import PostsSearch from '../search/PostsSearch'
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Hero from "../components/hero"
@@ -84,7 +84,6 @@ const IndexPage = ({ data }) => {
         {/* Adds search functionality to Gatsby.  Dependent on configuration files in
         src/apollo and src/seach - as well as the Apollo exports in gatsby-browser.js and 
         gatsby-ssr.js. */}
-        <PostsSearch />
       </Layout>
   )
 }
