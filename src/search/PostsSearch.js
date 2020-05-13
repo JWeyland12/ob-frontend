@@ -2,16 +2,7 @@ import React, { Component } from 'react';
 import PostsList from './PostsList';
 import SEO from "../components/seo"
 import {
-  Section,
-  Container,
-  Title,
-  Subtitle,
-  Button,
-  Icon,
-  Column,
-  Columns,
-  Box,
-  Card,
+  Input,
 } from "bloomer"
 
 class PostsSearch extends Component {
@@ -33,7 +24,7 @@ class PostsSearch extends Component {
     return (
       <div className="posts-search">
         <form className="posts-search__form" onSubmit={handleSubmit}>
-          <input
+        <Input autoFocus          
             type="text"
             className="posts-search__search-field"
             name="searchQuery"
@@ -43,13 +34,7 @@ class PostsSearch extends Component {
           />
         </form>
         {searchQuery &&
-          <div className="results">
-            {/* <Section>
-              <Container> */}
-                <PostsList searchQuery={searchQuery} />
-              {/* </Container>
-            </Section> */}
-          </div>
+          <PostsList searchQuery={searchQuery} />
         }
       </div>
     );
