@@ -39,7 +39,7 @@ return (
         }
 				</Column>
 				<Column>
-					<p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: excerpt }} />
+					<p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: excerpt.substr(0, 314) + ' [...]' }} />
 				</Column>
 			</Columns>
 		</Link>
