@@ -1,5 +1,5 @@
 import React from "react"
-import PostsList from '../search/PostsList'
+import PostsSearch from '../search/PostsSearch'
 import {
   Section,
   Container,
@@ -9,16 +9,16 @@ import {
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const AllPosts = () => (
+const Search = () => (
 <Layout>
     <Section>
       <Container>
         <SEO title="Posts" keywords={[`gatsby`, `application`, `react`]} />
-          <Title isSpaced>Posts</Title>
-          <PostsList searchQuery={''} />  
+          <Title isSpaced>Search</Title>
+          <PostsSearch />     
       </Container>
     </Section>
   </Layout>
 )
 
-export default AllPosts
+export default Search
