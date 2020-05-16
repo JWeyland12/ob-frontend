@@ -6,6 +6,7 @@
   "author": "None",
   "dependencies": {
     "apollo-boost": "^0.4.7",
+    "apollo-client": "^2.6.10",
     "bloomer": "0.6.5",
     "bulma": "0.8.2",
     "gatsby": "2.21.9",
