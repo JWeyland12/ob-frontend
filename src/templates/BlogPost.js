@@ -3,20 +3,13 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { 
-  FaYoutube, 
-  FaFacebook, 
-  FaPinterest, 
-  FaTwitter, 
-  FaInstagram 
-} from 'react-icons/fa';
+import SocialIcons from "../components/icons"
 import {
   Section,
   Container,
   Column,
   Columns,
   Box,
-  Icon,
 } from "bloomer"
 
 const BlogPostTemplate = ({ data }) => (
@@ -27,12 +20,14 @@ const BlogPostTemplate = ({ data }) => (
     />
     <Section className="has-background-white">
       <Container>
+      <h1 style={{ marginBottom: 0 }} >{data.wordpressPost.title}</h1>
+        <p>
+          Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
+        </p>
+      </Container>
+      <Container>
         <Columns>
           <Column isSize='2/3'>
-            <h1 style={{ marginBottom: 0 }} >{data.wordpressPost.title}</h1>
-            <p>
-              Written by {data.wordpressPost.author.name} on {data.wordpressPost.date}
-            </p>
             <Img
               sizes={data.wordpressPost.featured_media.localFile.childImageSharp.sizes}
               alt={data.wordpressPost.title}
@@ -44,11 +39,7 @@ const BlogPostTemplate = ({ data }) => (
             />
           </Column>
           <Column hasTextAlign='centered' isOffset='8' isColor='danger'>
-            <FaYoutube isSize="medium" className="post-icons fa-2x" style={{ color: '#ff0000' }} />
-            <FaFacebook isSize="medium" className="post-icons fa-2x" style={{ color: '#3b5998' }} />
-            <FaPinterest isSize="medium" className="post-icons fa-2x" style={{ color: '#b31217' }} />
-            <FaTwitter isSize="medium" className="post-icons fa-2x" style={{ color: '#55acee' }} />
-            <FaInstagram isSize="medium" className="post-icons fa-2x" style={{ color: '#f10176' }} />
+            <SocialIcons />
             <Box>
               Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
             </Box>
