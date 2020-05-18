@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
-import FaYoutube from 'react-icons/fa';
 
 import {
   Navbar,
@@ -9,10 +8,8 @@ import {
   NavbarBurger,
   NavbarEnd,
   NavbarMenu,
-  NavbarItem,
   Container,
   Icon,
-  Button,
 } from "bloomer"
 
 export default class navbar extends Component {

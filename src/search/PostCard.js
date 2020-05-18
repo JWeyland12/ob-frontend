@@ -1,16 +1,10 @@
 import React from 'react';
 import { Link } from "gatsby"
 import {
-  Section,
   Container,
-  Title,
-  Subtitle,
-  Button,
-  Icon,
   Column,
   Columns,
   Box,
-  Card,
 } from "bloomer"
 
 

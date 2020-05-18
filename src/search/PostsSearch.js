@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PostsList from './PostsList';
-import SEO from "../components/seo"
 import {
   Input,
 } from "bloomer"
