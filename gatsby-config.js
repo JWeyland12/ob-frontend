@@ -57,6 +57,7 @@ module.exports = {
           "**/tags",
           "**/taxonomies",
           "**/users",
+          "**/comments",
           "**/*/*/menus", // <== Menu api endpoint
           "**/*/*/menu-locations", // <== Menu api endpoint
         ],
@@ -65,6 +66,7 @@ module.exports = {
           return entities
         },
       },
+      
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
