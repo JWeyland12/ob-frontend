@@ -4,6 +4,8 @@ import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SocialIcons from "../components/icons"
+import CommentForm from '../comments/comment-form';
+import CommentList from '../comments/comment-list';
 import {
   Section,
   Container,
@@ -37,6 +39,8 @@ const BlogPostTemplate = ({ data }) => (
               style={{ marginTop: 20 }}
               dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
             />
+          <CommentForm postId={data.wordpressPost.wordpress_id} />
+          <CommentList postId={data.wordpressPost.wordpress_id} />
           </Column>
           <Column hasTextAlign='centered' isOffset='8' isColor='danger'>
             <SocialIcons />
@@ -76,6 +80,7 @@ export const query = graphql`
           }
         }
       }
+      wordpress_id
     }
   }
 `
