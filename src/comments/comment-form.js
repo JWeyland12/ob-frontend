@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 
 // Create a GraphQL mutation for comment submissions.
 const commentSubmitQuery = gql`
-	mutation($author: String, $commentOn: Int, $content: String, $authorEmail: String) {
+	mutation($author: String, $commentOn: Int, $content: String, $authorEmail: String, $authorUrl: String) {
 		createComment(
 			input: {
 				clientMutationId: "CreateComment"
@@ -12,6 +12,7 @@ const commentSubmitQuery = gql`
 				commentOn: $commentOn
 				content: $content
 				authorEmail: $authorEmail
+				authorUrl: $authorUrl
 			}
 		) {
 			success
@@ -79,6 +80,7 @@ class CommentForm extends React.Component {
 									commentOn: this.state.post,
 									content: this.state.comment,
 									authorEmail: this.state.email,
+									authorUrl: this.state.url,
 								},
 							});
 						}}
