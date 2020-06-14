@@ -35,6 +35,9 @@ class CommentList extends React.Component {
     render() {
         const postId = this.props.postId;
 
+        // Helper function for formatting dates with MomentJS.
+        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
+
         return (
             // Wrap the comment list in our query.
             <Query query={commentQuery} variables={{ postId }}>
@@ -57,7 +60,7 @@ class CommentList extends React.Component {
                                         <a href={comment.author.url}>{comment.author.name}</a> says:<br/>  
                                         <Location>
                                             {({ location }) => {
-                                                return <a href={`${location.pathname}#comment-${comment.commentId}`}>{comment.date}</a>;
+                                                return <a href={`${location.pathname}#comment-${comment.commentId}`}>{formatDate(comment.date)}</a>;
                                             }}
                                         </Location>
                                     </div>
