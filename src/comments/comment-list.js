@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { Location } from '@reach/router';
 import moment from 'moment';
 
+
 // Create a GraphQL query for the comment list.
 const commentQuery = gql`
     query($postId: ID!) {
@@ -31,9 +32,23 @@ const commentQuery = gql`
 
 // Main component class.
 class CommentList extends React.Component {
+    
     // Render stuff.
     render() {
         const postId = this.props.postId;
+
+        // Helper function to generate location.
+        const generateCommentLink = (commentId) => (
+            <Location>
+              {({ location }) => (
+                (location.pathname + '#comment-' + commentId)
+                // <a href={`${location.pathname}#comment-${comment.commentId}`}>{formatDate(comment.date)}</a>;
+              )}
+            </Location>
+          )
+
+        // Helper function for formatting dates with MomentJS.
+        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
 
         return (
             // Wrap the comment list in our query.
@@ -55,11 +70,7 @@ class CommentList extends React.Component {
                                 <div key={idx} className="comment">
                                     <div className="comment-author">
                                         <a href={comment.author.url}>{comment.author.name}</a> says:<br/>  
-                                        <Location>
-                                            {({ location }) => {
-                                                return <a href={`${location.pathname}#comment-${comment.commentId}`}>{comment.date}</a>;
-                                            }}
-                                        </Location>
+                                        <span id={`comment-${comment.commentId}`}>{generateCommentLink(comment.commentId)}</span>
                                     </div>
                                     <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
                                 </div>
