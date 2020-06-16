@@ -7,4 +7,4 @@
 // You can delete this file if you're not using it
 
 // Apollo client
-export { wrapRootElement } from './src/apollo/wrap-root-element';
+// export { wrapRootElement } from './src/apollo/wrap-root-element';
