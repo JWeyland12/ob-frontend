@@ -6,5 +6,5 @@
 
 // You can delete this file if you're not using it
 
-// Apollo client
-// export { wrapRootElement } from './src/apollo/wrap-root-element';
+// Apollo client - DO NOT REMOVE (or build will break)
+export { wrapRootElement } from './src/apollo/wrap-root-element';

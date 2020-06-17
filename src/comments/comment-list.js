@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import { Location } from '@reach/router';
 import moment from 'moment';
-
+import { Link } from 'gatsby';
 
 // Create a GraphQL query for the comment list.
 const commentQuery = gql`
@@ -37,18 +37,17 @@ class CommentList extends React.Component {
     render() {
         const postId = this.props.postId;
 
+        // Helper function for formatting dates with MomentJS.
+        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
+
         // Helper function to generate location.
-        const generateCommentLink = (commentId) => (
+        const generateCommentLink = (commentId, commentDate) => (
             <Location>
               {({ location }) => (
-                (location.pathname + '#comment-' + commentId)
-                // <a href={`${location.pathname}#comment-${comment.commentId}`}>{formatDate(comment.date)}</a>;
+                <Link to={`${location.pathname}/#comment-${commentId}`}>{formatDate(commentDate)}</Link>
               )}
             </Location>
           )
-
-        // Helper function for formatting dates with MomentJS.
-        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
 
         return (
             // Wrap the comment list in our query.
@@ -58,8 +57,6 @@ class CommentList extends React.Component {
                     if (loading) return 'Loading comments...';
                     if (error) return 'Error loading comments...';
 
-                    console.log(`This is comment date: ${data.comments.nodes}`)
-
                     // Display message if there are no comments to show.
                     if (data.comments.nodes.length < 1) return 'This post does not have any comments.';
 
@@ -67,10 +64,10 @@ class CommentList extends React.Component {
                         // Display the comment list.
                         <div className="comment-list">
                             {data.comments.nodes.map((comment, idx) => (
-                                <div key={idx} className="comment">
+                                <div id={`comment-${comment.commentId}`} key={idx} className="comment">
                                     <div className="comment-author">
-                                        <a href={comment.author.url}>{comment.author.name}</a> says:<br/>  
-                                        <span id={`comment-${comment.commentId}`}>{generateCommentLink(comment.commentId)}</span>
+                                        <a href={comment.author.url}>{comment.author.name}</a> says:<br/> 
+                                        {generateCommentLink(comment.commentId, comment.date)}
                                     </div>
                                     <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
                                 </div>
