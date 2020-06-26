@@ -9,5 +9,13 @@
 // Bulma Framework global scss
 import "./src/styles/mystyles.scss"
 
+// Anchorate packe for in-page anchoes
+import { anchorate } from 'anchorate';
+
 // Apollo client
 export { wrapRootElement } from './src/apollo/wrap-root-element';
+
+// Anchorate for in-page anchors
+export const onRouteUpdate = () => {
+  anchorate()
+}

@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "None",
   "dependencies": {
+    "anchorate": "^1.2.3",
     "apollo-boost": "^0.4.7",
     "apollo-client": "^2.6.10",
     "bloomer": "0.6.5",
