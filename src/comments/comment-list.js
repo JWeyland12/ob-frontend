@@ -19,6 +19,11 @@ const commentQuery = gql`
 		content
         commentId
         date
+        children {
+            nodes {
+                content
+            }
+        }
         author {
             ...AuthorFields
         }
@@ -64,12 +69,24 @@ class CommentList extends React.Component {
                         // Display the comment list.
                         <div className="comment-list">
                             {data.comments.nodes.map((comment, idx) => (
+                                
+                            // Display top-level comments
                                 <div id={`comment-${comment.commentId}`} key={idx} className="comment">
                                     <div className="comment-author">
                                         <a href={comment.author.url}>{comment.author.name}</a> says:<br/> 
                                         {generateCommentLink(comment.commentId, comment.date)}
                                     </div>
                                     <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
+                                    
+                                    {/* Display nested comments */}
+                                    <div dangerouslySetInnerHTML={{ __html: comment.children.nodes[0].content }} />
+                                    {comment.children.nodes.forEach((nestedComment) => {
+                                        console.log(nestedComment.content)
+                                    })
+                                }
+                                
+                                    
+                                    
                                 </div>
                             ))}
                         </div>
