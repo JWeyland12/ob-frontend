@@ -39,8 +39,8 @@ const BlogPostTemplate = ({ data }) => (
               style={{ marginTop: 20 }}
               dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
             />
-          <CommentForm postId={data.wordpressPost.wordpress_id} />
           <CommentList postId={data.wordpressPost.wordpress_id} />
+          <CommentForm postId={data.wordpressPost.wordpress_id} />
           </Column>
           <Column hasTextAlign='centered' isOffset='8'>
             <SocialIcons />
