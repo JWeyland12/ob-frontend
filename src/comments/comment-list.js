@@ -22,12 +22,17 @@ const commentQuery = gql`
         children {
             nodes {
                 content
+                commentId
+                date
+                author {
+                    ...AuthorFields
+                }
             }
         }
         author {
             ...AuthorFields
         }
-	}
+    }
 
     fragment AuthorFields on CommentAuthor {
         name
@@ -43,7 +48,7 @@ class CommentList extends React.Component {
         const postId = this.props.postId;
 
         // Helper function for formatting dates with MomentJS.
-        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
+        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mma')
 
         // Helper function to generate location.
         const generateCommentLink = (commentId, commentDate) => (
@@ -53,6 +58,17 @@ class CommentList extends React.Component {
               )}
             </Location>
           )
+
+        // Helper function for generating each comment.
+        const generateComment = (comClass, comId, authUrl, authName, comDate, comContent) => (
+            <div className={comClass} id={`comment-${comId}`}>
+                <div className="comment-author">
+                    <a href={authUrl}>{authName}</a> says:<br/> 
+                    {generateCommentLink(comId, comDate)}
+                </div>
+                <div className="comment-content" dangerouslySetInnerHTML={{ __html: comContent }} />
+            </div>
+        )
 
         return (
             // Wrap the comment list in our query.
@@ -68,27 +84,15 @@ class CommentList extends React.Component {
                     return (	
                         // Display the comment list.
                         <div className="comment-list">
-                            {data.comments.nodes.map((comment, idx) => (
-                                
-                            // Display top-level comments
-                                <div id={`comment-${comment.commentId}`} key={idx} className="comment">
-                                    <div className="comment-author">
-                                        <a href={comment.author.url}>{comment.author.name}</a> says:<br/> 
-                                        {generateCommentLink(comment.commentId, comment.date)}
-                                    </div>
-                                    <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
-                                    
-                                    {/* Display nested comments */}
-                                    <div dangerouslySetInnerHTML={{ __html: comment.children.nodes[0].content }} />
-                                    {comment.children.nodes.forEach((nestedComment) => {
-                                        console.log(nestedComment.content)
-                                    })
-                                }
-                                
-                                    
-                                    
+                            {data.comments.nodes.map((d, idx) => (
+                                <div key={idx}>
+                                    {/* Render parent comment. */}
+                                    {generateComment("parent-comment", d.commentId, d.author.url, d.author.name, d.date, d.content)}
+                                    {/* Render child/nested comment. */}
+                                    {console.log(d.children.nodes[0].commentId)}
+                                    {generateComment("child-comment", d.children.nodes[0].commentId, d.children.nodes[0].author.url, d.children.nodes[0].author.name, d.children.nodes[0].date, d.children.nodes[0].content)}
                                 </div>
-                            ))}
+                            ))}   
                         </div>
                     );
                 }}
