@@ -1,9 +1,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
-import {
-    Field, Label, Control, Input, Icon, Help, Radio, Button, Select, TextArea, Checkbox,
-  } from "bloomer"
+import { Field, Label, Control, Input, Button, TextArea} from "bloomer"
 
 // Create a GraphQL mutation for comment submissions.
 const commentSubmitQuery = gql`
@@ -70,7 +68,7 @@ class CommentForm extends React.Component {
 			>
 				{(addComment) => (
 					// Render the form.
-					<form
+					<form className="comment-form"
 						onSubmit={(event) => {
 							// Prevent default form submit behavior.
 							event.preventDefault();
@@ -90,55 +88,43 @@ class CommentForm extends React.Component {
 					>
 						<h3><strong>Leave a Reply</strong></h3>
 					<p>Your email address will not be published.  Required fields are marked *</p>
+						<Field>
+							<Label htmlFor="comment">Comment</Label>
+							<Control>
+								<TextArea name="comment" value={this.state.comment} onChange={this.handleInputChange} />
+							</Control>
+						</Field>
+						
+						<Field>
+						<Label htmlFor="author">Name *</Label>
+							<Control>
+								<Input name="author" value={this.state.author} onChange={this.handleInputChange} />
+							</Control>
+						</Field>
+						
+						<Field>
+						<Label htmlFor="email">Email *</Label>
+							<Control>
+								<Input name="email" value={this.state.email} onChange={this.handleInputChange} />
+							</Control>
+						</Field>
 
-
-				<Field>
-					<Label htmlFor="comment">Comment</Label>
-					<Control>
-						<TextArea name="comment" value={this.state.comment} onChange={this.handleInputChange} />
-					</Control>
-				</Field>
-				
-				<Field>
-				<Label htmlFor="author">Name *</Label>
-					<Control>
-						<Input name="author" value={this.state.author} onChange={this.handleInputChange} />
-					</Control>
-				</Field>
-				
-				<Field>
-				<Label htmlFor="email">Email *</Label>
-					<Control>
-						<Input name="email" value={this.state.email} onChange={this.handleInputChange} />
-					</Control>
-				</Field>
-
-				<Field>
-				<Label htmlFor="author">Website</Label>
-					<Control>
-						<Input name="url" value={this.state.url} onChange={this.handleInputChange}/>
-					</Control>
-				</Field>
-								
-				<Field isGrouped>
-					<Control>
-						<Button name="submit" type="submit" value="Post Comment">Submit</Button>
-					</Control>
-					<Control>
-						<Button isLink>Cancel</Button>
-					</Control>
-				</Field>
-						{/* <label htmlFor="author">Author</label> */}
-						{/* <input name="author" value={this.state.author} onChange={this.handleInputChange} /> */}
-						{/* <label htmlFor="email">Email</label> */}
-						{/* <input name="email" value={this.state.email} onChange={this.handleInputChange} /> */}
-						{/* <label htmlFor="author">Website</label> */}
-						{/* <input name="url" value={this.state.url} onChange={this.handleInputChange} /> */}
-						{/* <label htmlFor="comment">Comment</label> */}
-						{/* <textarea name="comment" value={this.state.comment} onChange={this.handleInputChange} /> */}
-						{/* <input name="submit" type="submit" value="Post Comment" /> */}
+						<Field>
+						<Label htmlFor="author">Website</Label>
+							<Control>
+								<Input name="url" value={this.state.url} onChange={this.handleInputChange}/>
+							</Control>
+						</Field>
+										
+						<Field isGrouped>
+							<Control>
+								<Button name="submit" type="submit" value="Post Comment">Submit</Button>
+							</Control>
+							<Control>
+								<Button isLink>Cancel</Button>
+							</Control>
+						</Field>
 					</form>
-					
 				)}
 			</Mutation>
 		);

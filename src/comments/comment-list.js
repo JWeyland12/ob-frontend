@@ -19,10 +19,20 @@ const commentQuery = gql`
 		content
         commentId
         date
+        children {
+            nodes {
+                content
+                commentId
+                date
+                author {
+                    ...AuthorFields
+                }
+            }
+        }
         author {
             ...AuthorFields
         }
-	}
+    }
 
     fragment AuthorFields on CommentAuthor {
         name
@@ -38,7 +48,7 @@ class CommentList extends React.Component {
         const postId = this.props.postId;
 
         // Helper function for formatting dates with MomentJS.
-        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mm:ss a')
+        const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mma')
 
         // Helper function to generate location.
         const generateCommentLink = (commentId, commentDate) => (
@@ -49,6 +59,17 @@ class CommentList extends React.Component {
             </Location>
           )
 
+        // Helper function for generating each comment.
+        const generateComment = (comClass, comId, authUrl, authName, comDate, comContent) => (
+            <div className={comClass} id={`comment-${comId}`}>
+                <div className="comment-author">
+                    <a href={authUrl}>{authName}</a> says:<br/> 
+                    {generateCommentLink(comId, comDate)}
+                </div>
+                <div className="comment-content" dangerouslySetInnerHTML={{ __html: comContent }} />
+            </div>
+        )
+
         return (
             // Wrap the comment list in our query.
             <Query query={commentQuery} variables={{ postId }}>
@@ -57,21 +78,21 @@ class CommentList extends React.Component {
                     if (loading) return 'Loading comments...';
                     if (error) return 'Error loading comments...';
 
-                    // Display message if there are no comments to show.
-                    if (data.comments.nodes.length < 1) return 'This post does not have any comments.';
+                    // if (data.comments.nodes.length < 1) then don't display comment list.
+                    if (data.comments.nodes.length < 1) return false;
 
                     return (	
                         // Display the comment list.
                         <div className="comment-list">
-                            {data.comments.nodes.map((comment, idx) => (
-                                <div id={`comment-${comment.commentId}`} key={idx} className="comment">
-                                    <div className="comment-author">
-                                        <a href={comment.author.url}>{comment.author.name}</a> says:<br/> 
-                                        {generateCommentLink(comment.commentId, comment.date)}
-                                    </div>
-                                    <div className="comment-content" dangerouslySetInnerHTML={{ __html: comment.content }} />
+                            <h3><strong>Comments</strong></h3>
+                            {data.comments.nodes.map((d, idx) => (
+                                <div className="comment-container" key={idx}>
+                                    {/* Render parent comment. */}
+                                    {generateComment("parent-comment", d.commentId, d.author.url, d.author.name, d.date, d.content)}
+                                    {/* Render child/nested comment. */}
+                                    {(d.children.nodes.length >= 1) ? generateComment("child-comment", d.children.nodes[0].commentId, d.children.nodes[0].author.url, d.children.nodes[0].author.name, d.children.nodes[0].date, d.children.nodes[0].content) : false}
                                 </div>
-                            ))}
+                            ))}   
                         </div>
                     );
                 }}
