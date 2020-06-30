@@ -68,7 +68,7 @@ class CommentForm extends React.Component {
 			>
 				{(addComment) => (
 					// Render the form.
-					<form
+					<form className="comment-form"
 						onSubmit={(event) => {
 							// Prevent default form submit behavior.
 							event.preventDefault();

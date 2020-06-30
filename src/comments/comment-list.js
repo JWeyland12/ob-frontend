@@ -78,19 +78,19 @@ class CommentList extends React.Component {
                     if (loading) return 'Loading comments...';
                     if (error) return 'Error loading comments...';
 
-                    // Display message if there are no comments to show.
-                    if (data.comments.nodes.length < 1) return 'This post does not have any comments.';
+                    // if (data.comments.nodes.length < 1) then don't display comment list.
+                    if (data.comments.nodes.length < 1) return false;
 
                     return (	
                         // Display the comment list.
                         <div className="comment-list">
+                            <h3><strong>Comments</strong></h3>
                             {data.comments.nodes.map((d, idx) => (
-                                <div key={idx}>
+                                <div className="comment-container" key={idx}>
                                     {/* Render parent comment. */}
                                     {generateComment("parent-comment", d.commentId, d.author.url, d.author.name, d.date, d.content)}
                                     {/* Render child/nested comment. */}
-                                    {console.log(d.children.nodes[0].commentId)}
-                                    {generateComment("child-comment", d.children.nodes[0].commentId, d.children.nodes[0].author.url, d.children.nodes[0].author.name, d.children.nodes[0].date, d.children.nodes[0].content)}
+                                    {(d.children.nodes.length >= 1) ? generateComment("child-comment", d.children.nodes[0].commentId, d.children.nodes[0].author.url, d.children.nodes[0].author.name, d.children.nodes[0].date, d.children.nodes[0].content) : false}
                                 </div>
                             ))}   
                         </div>
