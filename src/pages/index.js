@@ -1,88 +1,69 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import Hero from "../components/hero"
 import {
   Section,
   Container,
-  Title,
+  Columns,
   Column,
-  Content,
   Button,
-  Icon,
+  Box,
 } from "bloomer"
+import MailingList from "../mailchimp/mailing-list"
+import { FcGallery } from "react-icons/fc"
 
 const IndexPage = ({ data }) => {
   const page = data.site.siteMetadata
   return (
       <Layout>
         <SEO title="Home" />
-        <Hero siteTitle={page.title} description={page.description} />
-        <Section>
+        {/* <Hero siteTitle={page.title} description={page.description} /> */}
+        <Section className="mailing-list has-white-text">
           <Container>
-            {/* Intro section  */}
-            <Column isSize="2/3">
-              <Title>Welcome to your Gatsby site</Title>
-              <Content>
-                <p>
-                  This barebones starter ships with the main{" "}
-                  <strong>Gatsby + Bloomer</strong> configuration files you might
-                  need. Configured with only the <strong>bare minimums</strong>{" "}
-                  needed to get your site started.
-                </p>
-                {/* List of features */}
-                <ul id="list-unstyled">
-                  <li>
-                    <Icon
-                      className="fab fa-sass fa-lg has-text-primary"
-                      id="feature-icon"
-                    />
-                    Sass Ready
-                  </li>
-                  <li>
-                    <Icon
-                      className="fas fa-icons fa-lg has-text-primary"
-                      id="feature-icon"
-                    />
-                    Font Awesome Icons
-                  </li>
-                  <li>
-                    <Icon
-                      className="fas fa-tachometer-alt fa-lg has-text-primary"
-                      id="feature-icon"
-                    />
-                    Progressive Web App
-                  </li>
-                  <li>
-                    <Icon
-                      className="fas fa-caret-square-down fa-lg has-text-primary"
-                      id="feature-icon"
-                    />
-                    Sticky Footer
-                  </li>
-                </ul>
-                {/* Navigate to page 2 */}
-                <p>
-                  <Link to="/page-2/">
-                    <Button
-                      isColor="primary"
-                      className="is-rounded"
-                      id="btn-spaced"
-                    >
-                      <span>Go to page 2</span>
-                      <Icon className="fa fa-arrow-right fa-sm" />
-                    </Button>
-                  </Link>
-                </p>
-              </Content>
-            </Column>
+            <Columns>
+              <Column isSize='1/3'>  
+                  <img src="https://via.placeholder.com/350x225"/>
+              </Column>
+              <Column>
+                <MailingList/>
+              </Column>
+            </Columns>
           </Container>
         </Section>
-        {/* Adds search functionality to Gatsby.  Dependent on configuration files in
-        src/apollo and src/seach - as well as the Apollo exports in gatsby-browser.js and 
-        gatsby-ssr.js. */}
+        <Section>
+          <Container>
+            <Columns>
+            <Column isCentered isSize='1/3'>  
+                <Box className="content-centered">
+                  <FcGallery size={80}/>
+                    <h2>null for beginners</h2>
+                    <p>This is a paragraph</p>
+                  <Button isColor="primary">Get started</Button>
+                </Box>
+              </Column>
+              
+              <Column isSize='1/3'>
+                <Box className="content-centered">
+                  <FcGallery size={80}/>
+                    <h2>null care guides</h2>
+                    <p>This is a paragraph</p>
+                  <Button isColor="primary">Get started</Button>
+                </Box>
+              </Column>
+
+              <Column isSize='1/3'>
+                <Box className="content-centered">
+                  <FcGallery size={80}/>
+                    <h2>null essential tools</h2>
+                    <p>This is a paragraph</p>
+                  <Button isColor="primary">Get started</Button>
+                </Box>
+              </Column>
+            </Columns>
+          </Container>
+        </Section>
       </Layout>
   )
 }

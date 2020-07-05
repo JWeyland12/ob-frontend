@@ -70,7 +70,7 @@ export default class navbar extends Component {
                 activeClassName="is-active"
                 className="navbar-link nav-item is-arrowless"
               >
-                            <Icon hasTextColor="white" className="fa fa-search 2x"></Icon>
+              <Icon className="fa fa-search 2x"></Icon>
               </Link>
             </NavbarEnd>
           </NavbarMenu>
