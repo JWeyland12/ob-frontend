@@ -9,6 +9,9 @@ import {
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
+/* Adds search functionality to Gatsby.  Dependent on configuration files in
+src/apollo and src/seach - as well as the Apollo exports in gatsby-browser.js and 
+gatsby-ssr.js. */
 const Search = () => (
 <Layout>
     <Section>
