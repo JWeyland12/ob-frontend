@@ -48,23 +48,99 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
   return fetchMoreResult.posts.edges.length ? fetchMoreResult : previousResult;
 };
 
-const PostsList = ({searchQuery, data, error, loading, fetchMore }) => (
-  <Query query={PostsQuery} variables={{ searchQuery, first, after, last, before }}>
-    {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error...</p>;
-      if (!data.posts.edges.length) return <p>No matching posts found.</p>;
+// Component that shoes the paginated list of posts
+const PostList = ({ searchQuery, data, error, loading, fetchMore }) => {
+  const { posts } = data;
+  return (
+    <div>
+      <h2>Post List</h2>
+      {posts && posts.edges ? (
+        <div>
+          <ul>
+            {posts.edges.map(edge => {
+              const { node } = edge;
+              return (
+                <li
+                  key={node.postId}
+                  dangerouslySetInnerHTML={{ __html: node.title }}
+                />
+              );
+            })}
+          </ul>
+          <div>
+            {posts.pageInfo.hasPreviousPage ? (
+              <button
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      searchQuery: 'h',
+                      first: null,
+                      after: null,
+                      last: 1,
+                      before: posts.pageInfo.startCursor || null
+                    },
+                    updateQuery
+                  });
+                }}
+              >
+                Previous
+              </button>
+            ) : null}
+            {posts.pageInfo.hasNextPage ? (
+              <button
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      searchQuery: 'h',
+                      first: 1,
+                      after: posts.pageInfo.endCursor || null,
+                      last: null,
+                      before: null
+                    },
+                    updateQuery
+                  });
+                }}
+              >
+                Next
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : (
+        <div>No posts were found...</div>
+      )}
+    </div>
+  );
+};
 
-      return data.posts.edges.map(edge => {
-        const { node: post } = edge;
-        const { postId } = post;
+const Posts = () => {
+  const variables = {
+    searchQuery: 'h',
+    first: 1,
+    last: null,
+    after: null,
+    before: null
+  };
+  const { data, error, loading, fetchMore } = useQuery(PostsQuery, {
+    variables
+  });
 
-        return (
-          <PostCard key={postId} post={post} />
-        );
-      });
-    }}
-  </Query>
-);
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>;
+  }
 
-export default PostsList;
+  if (loading) {
+    return null;
+  }
+
+  return (
+    <PostList
+      error={error}
+      loading={loading}
+      data={data}
+      fetchMore={fetchMore}
+    />
+  );
+};
+
+export default () => <Posts />;
