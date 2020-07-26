@@ -5,11 +5,25 @@ import PostCard from './PostCard';
 
 
 // This is the query that Apollo Client will send to the WP site.
-const POSTS_SEARCH_QUERY = gql`
-  query POSTS_SEARCH_QUERY($searchQuery: String!) {
-    posts(where: { search: $searchQuery }) {
+const PostsQuery = gql`
+  query GET_PAGINATED_POSTS(
+    $searchQuery: String!
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+  ) {
+    posts(where: { search: $searchQuery }, first: $first, last: $last, after: $after, before: $before) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
       edges {
+        cursor
         node {
+          id
           postId
           title
           date
@@ -29,7 +43,7 @@ const POSTS_SEARCH_QUERY = gql`
 `;
 
 const PostsList = ({searchQuery}) => (
-  <Query query={POSTS_SEARCH_QUERY} variables={{ searchQuery }}>
+  <Query query={PostsQuery} variables={{ searchQuery }}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error...</p>;
