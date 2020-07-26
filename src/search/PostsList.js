@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
+import { useQuery } from '@apollo/react-hooks';
 
 
 // This is the query that Apollo Client will send to the WP site.
@@ -42,8 +43,13 @@ const PostsQuery = gql`
   }
 `;
 
-const PostsList = ({searchQuery}) => (
-  <Query query={PostsQuery} variables={{ searchQuery }}>
+// Function to update the query with the new results
+const updateQuery = (previousResult, { fetchMoreResult }) => {
+  return fetchMoreResult.posts.edges.length ? fetchMoreResult : previousResult;
+};
+
+const PostsList = ({searchQuery, data, error, loading, fetchMore }) => (
+  <Query query={PostsQuery} variables={{ searchQuery, first, after, last, before }}>
     {({ loading, error, data }) => {
       if (loading) return <p>Loading...</p>;
       if (error) return <p>Error...</p>;
