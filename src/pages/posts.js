@@ -1,5 +1,5 @@
 import React from "react"
-import PostsList from '../search/PostsList'
+import Posts from '../search/PostsList'
 import {
   Section,
   Container,
@@ -15,7 +15,7 @@ const AllPosts = () => (
       <Container>
         <SEO title="Posts" keywords={[`gatsby`, `application`, `react`]} />
           <Title isSpaced>Posts</Title>
-          <PostsList searchQuery={''} />  
+          <Posts searchQuery={''} />  
       </Container>
     </Section>
   </Layout>

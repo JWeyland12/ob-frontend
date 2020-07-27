@@ -8,7 +8,7 @@ import { useQuery } from '@apollo/react-hooks';
 // This is the query that Apollo Client will send to the WP site.
 const PostsQuery = gql`
   query GET_PAGINATED_POSTS(
-    $searchQuery: String!
+    $searchQuery: String
     $first: Int
     $last: Int
     $after: String
@@ -49,7 +49,7 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
 };
 
 // Component that shoes the paginated list of posts
-const PostList = ({ searchQuery, data, error, loading, fetchMore }) => {
+const PostList = ({ data, error, loading, fetchMore }) => {
   const { posts } = data;
   return (
     <div>
@@ -73,10 +73,10 @@ const PostList = ({ searchQuery, data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      searchQuery: 'h',
+                      searchQuery: '',
                       first: null,
                       after: null,
-                      last: 1,
+                      last: 3,
                       before: posts.pageInfo.startCursor || null
                     },
                     updateQuery
@@ -91,8 +91,8 @@ const PostList = ({ searchQuery, data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      searchQuery: 'h',
-                      first: 1,
+                      searchQuery: '',
+                      first: 3,
                       after: posts.pageInfo.endCursor || null,
                       last: null,
                       before: null
@@ -113,10 +113,10 @@ const PostList = ({ searchQuery, data, error, loading, fetchMore }) => {
   );
 };
 
-const Posts = () => {
+const Posts = ({ searchQuery }) => {
   const variables = {
-    searchQuery: 'h',
-    first: 1,
+    searchQuery,
+    first: 3,
     last: null,
     after: null,
     before: null
@@ -133,6 +133,8 @@ const Posts = () => {
     return null;
   }
 
+  console.log(searchQuery)
+
   return (
     <PostList
       error={error}
@@ -143,4 +145,4 @@ const Posts = () => {
   );
 };
 
-export default () => <Posts />;
+export default Posts;
