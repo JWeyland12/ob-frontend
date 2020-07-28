@@ -73,14 +73,16 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      searchQuery: '',
+                      // searchQuery: '',
                       first: null,
                       after: null,
-                      last: 3,
+                      last: 5,
                       before: posts.pageInfo.startCursor || null
                     },
                     updateQuery
                   });
+                  {console.log("Has previous page", posts.pageInfo.hasPreviousPage)}
+                  {console.log("Has next page", posts.pageInfo.hasNextPage)}
                 }}
               >
                 Previous
@@ -91,8 +93,8 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      searchQuery: '',
-                      first: 3,
+                      // searchQuery: '',
+                      first: 5,
                       after: posts.pageInfo.endCursor || null,
                       last: null,
                       before: null
@@ -115,8 +117,8 @@ const PostList = ({ data, error, loading, fetchMore }) => {
 
 const Posts = ({ searchQuery }) => {
   const variables = {
-    searchQuery,
-    first: 3,
+    searchQuery: searchQuery,
+    first: 5,
     last: null,
     after: null,
     before: null
