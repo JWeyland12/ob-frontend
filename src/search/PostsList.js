@@ -1,5 +1,5 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+// import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
 import { useQuery } from '@apollo/react-hooks';
@@ -56,17 +56,13 @@ const PostList = ({ data, error, loading, fetchMore }) => {
       <h2>Post List</h2>
       {posts && posts.edges ? (
         <div>
-          <ul>
-            {posts.edges.map(edge => {
-              const { node } = edge;
+            {data.posts.edges.map(edge => {
+              const { node: post } = edge;
+              const { postId } = post;
               return (
-                <li
-                  key={node.postId}
-                  dangerouslySetInnerHTML={{ __html: node.title }}
-                />
+                <PostCard key={postId} post={post} />
               );
-            })}
-          </ul>
+            })}        
           <div>
             {posts.pageInfo.hasPreviousPage ? (
               <button

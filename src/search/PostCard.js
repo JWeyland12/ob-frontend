@@ -18,7 +18,7 @@ const PostCard = ({post}) => {
 return (
 	<Box key={postId}>
 		<Link
-      // to={`/post/${post.node.slug}`}
+      // to={`/post/${post.node.slug}`} 
       to={`/posts/` + slug}
 			style={{ color: "black", textDecoration: "none" }}
 		>
@@ -28,9 +28,9 @@ return (
 			</Container>
 			<Columns isCentered>
 				<Column isSize='1/4'>
-        { featuredImage && // If a featured image exists, display it.
-       <img src={featuredImage.sourceUrl} alt={featuredImage.altText} className="post-card__image" />
-        }
+					{ featuredImage && // If a featured image exists, display it.
+						<img src={featuredImage.sourceUrl} alt={featuredImage.altText} className="post-card__image" />
+					}
 				</Column>
 				<Column>
 					<p className="text-wrap" style={{ textOverflow: "hidden" }} dangerouslySetInnerHTML={{ __html: excerpt.substr(0, 314) + ' [...]' }} />
