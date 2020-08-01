@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import PostsList from './PostsList';
+import Posts from './PostsList';
 import {
   Input,
 } from "bloomer"
 
 class PostsSearch extends Component {
   state = {
-    searchQuery: ''
+    searchQuery: '',
   }
 
   handleSubmit = event => event.preventDefault();
@@ -33,7 +33,7 @@ class PostsSearch extends Component {
           />
         </form>
         {searchQuery &&
-          <PostsList searchQuery={searchQuery} />
+          <Posts searchQuery={searchQuery} />
         }
       </div>
     );

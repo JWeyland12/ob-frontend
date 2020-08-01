@@ -1,15 +1,30 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+// import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
+import { useQuery } from '@apollo/react-hooks';
 
 
 // This is the query that Apollo Client will send to the WP site.
-const POSTS_SEARCH_QUERY = gql`
-  query POSTS_SEARCH_QUERY($searchQuery: String!) {
-    posts(where: { search: $searchQuery }) {
+const PostsQuery = gql`
+  query GET_PAGINATED_POSTS(
+    $searchQuery: String
+    $first: Int
+    $last: Int
+    $after: String
+    $before: String
+  ) {
+    posts(where: { search: $searchQuery }, first: $first, last: $last, after: $after, before: $before) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
       edges {
+        cursor
         node {
+          id
           postId
           title
           date
@@ -28,23 +43,104 @@ const POSTS_SEARCH_QUERY = gql`
   }
 `;
 
-const PostsList = ({searchQuery}) => (
-  <Query query={POSTS_SEARCH_QUERY} variables={{ searchQuery }}>
-    {({ loading, error, data }) => {
-      if (loading) return <p>Loading...</p>;
-      if (error) return <p>Error...</p>;
-      if (!data.posts.edges.length) return <p>No matching posts found.</p>;
+// Function to update the query with the new results
+const updateQuery = (previousResult, { fetchMoreResult }) => {
+  return fetchMoreResult.posts.edges.length ? fetchMoreResult : previousResult;
+};
 
-      return data.posts.edges.map(edge => {
-        const { node: post } = edge;
-        const { postId } = post;
+// Component that shoes the paginated list of posts
+const PostList = ({ data, error, loading, fetchMore }) => {
+  const { posts } = data;
+  return (
+    <div>
+      <h2>Post List</h2>
+      {posts && posts.edges ? (
+        <div>
+            {data.posts.edges.map(edge => {
+              const { node: post } = edge;
+              const { postId } = post;
+              return (
+                <PostCard key={postId} post={post} />
+              );
+            })}        
+          <div>
+            {posts.pageInfo.hasPreviousPage ? (
+              <button
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      // searchQuery: '',
+                      first: null,
+                      after: null,
+                      last: 5,
+                      before: posts.pageInfo.startCursor || null
+                    },
+                    updateQuery
+                  });
+                  {console.log("Has previous page", posts.pageInfo.hasPreviousPage)}
+                  {console.log("Has next page", posts.pageInfo.hasNextPage)}
+                }}
+              >
+                Previous
+              </button>
+            ) : null}
+            {posts.pageInfo.hasNextPage ? (
+              <button
+                onClick={() => {
+                  fetchMore({
+                    variables: {
+                      // searchQuery: '',
+                      first: 5,
+                      after: posts.pageInfo.endCursor || null,
+                      last: null,
+                      before: null
+                    },
+                    updateQuery
+                  });
+                }}
+              >
+                Next
+              </button>
+            ) : null}
+          </div>
+        </div>
+      ) : (
+        <div>No posts were found...</div>
+      )}
+    </div>
+  );
+};
 
-        return (
-          <PostCard key={postId} post={post} />
-        );
-      });
-    }}
-  </Query>
-);
+const Posts = ({ searchQuery }) => {
+  const variables = {
+    searchQuery: searchQuery,
+    first: 5,
+    last: null,
+    after: null,
+    before: null
+  };
+  const { data, error, loading, fetchMore } = useQuery(PostsQuery, {
+    variables
+  });
 
-export default PostsList;
+  if (error) {
+    return <pre>{JSON.stringify(error)}</pre>;
+  }
+
+  if (loading) {
+    return null;
+  }
+
+  console.log(searchQuery)
+
+  return (
+    <PostList
+      error={error}
+      loading={loading}
+      data={data}
+      fetchMore={fetchMore}
+    />
+  );
+};
+
+export default Posts;

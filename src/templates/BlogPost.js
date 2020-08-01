@@ -30,11 +30,14 @@ const BlogPostTemplate = ({ data }) => (
       <Container>
         <Columns>
           <Column isSize='2/3'>
-            <Img
-              sizes={data.wordpressPost.featured_media.localFile.childImageSharp.sizes}
-              alt={data.wordpressPost.title}
-              style={{ maxHeight: 450 }}
-            />
+            {/* Prevents application from crashing when a featured image doesn't exist */}
+            {data.wordpressPost.featured_media ? (
+              <Img
+                sizes={data.wordpressPost.featured_media.localFile.childImageSharp.sizes}
+                alt={data.wordpressPost.title}
+                style={{ maxHeight: 450 }}
+              />
+            ) : null}
             <div
               style={{ marginTop: 20 }}
               dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
