@@ -14,7 +14,6 @@ const commentQuery = gql`
             }
 		}
     }
-
     fragment CommentFields on Comment {
 		content
         commentId
@@ -81,7 +80,7 @@ class CommentList extends React.Component {
                     if (loading) return 'Loading comments...';
                     if (error) return 'Error loading comments...';
 
-                    // if (data.comments.nodes.length < 1) then don't display comment list.
+                    // If comments don't exist, then don't attempt to display them (prevents undefined error).
                     if (data.comments.nodes.length < 1) return false;
 
                     return (	
@@ -91,9 +90,23 @@ class CommentList extends React.Component {
                             {data.comments.nodes.map((d, idx) => (
                                 <div className="comment-container" key={idx}>
                                     {/* Render parent comment. */}
-                                    {generateComment("parent-comment", d.commentId, d.author.node.url, d.author.node.name, d.date, d.content)}
+                                    {generateComment(
+                                      "parent-comment", 
+                                      d.commentId, 
+                                      d.author.node.url, 
+                                      d.author.node.name, 
+                                      d.date, 
+                                      d.content)}
                                     {/* Render child/nested comment. */}
-                                    {(d.replies.edges.length >= 1) ? generateComment("child-comment", d.replies.edges[0].node.commentId, d.replies.edges[0].node.author.node.url, d.replies.edges[0].node.author.node.name, d.replies.edges[0].node.date, d.replies.edges[0].node.content) : false}
+                                    {(d.replies.edges.length >= 1) ? 
+                                    generateComment(
+                                      "child-comment", 
+                                      d.replies.edges[0].node.commentId, 
+                                      d.replies.edges[0].node.author.node.url, 
+                                      d.replies.edges[0].node.author.node.name, 
+                                      d.replies.edges[0].node.date, 
+                                      d.replies.edges[0].node.content)
+                                    : false}
                                 </div>
                             ))}   
                         </div>
