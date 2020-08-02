@@ -29,7 +29,7 @@ return (
 			<Columns isCentered>
 				<Column isSize='1/4'>
 					{ featuredImage && // If a featured image exists, display it.
-						<img src={featuredImage.sourceUrl} alt={featuredImage.altText} className="post-card__image" />
+						<img src={featuredImage.node.sourceUrl} alt={featuredImage.node.altText} className="post-card__image" />
 					}
 				</Column>
 				<Column>
