@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
 import { useQuery } from '@apollo/react-hooks';
@@ -31,11 +30,15 @@ const PostsQuery = gql`
           excerpt
           slug
           author {
-            name
+            node {
+              name
+            }
           }
           featuredImage {
-            sourceUrl
-            altText
+            node {
+              sourceUrl
+              altText
+            }
           }
         }
       }
