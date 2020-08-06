@@ -51,12 +51,16 @@ const updateQuery = (previousResult, { fetchMoreResult }) => {
   return fetchMoreResult.posts.edges.length ? fetchMoreResult : previousResult;
 };
 
+// Jump to top of page when user clicks 'Next' or 'Previous' button
+const topFunction = () => {
+  window.scrollTo(0, 0)
+}
+
 // Component that shoes the paginated list of posts
 const PostList = ({ data, error, loading, fetchMore }) => {
   const { posts } = data;
   return (
     <div>
-      <h2>Post List</h2>
       {posts && posts.edges ? (
         <div>
             {data.posts.edges.map(edge => {
@@ -80,8 +84,7 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
-                  {console.log("Has previous page", posts.pageInfo.hasPreviousPage)}
-                  {console.log("Has next page", posts.pageInfo.hasNextPage)}
+                  {topFunction()}
                 }}
               >
                 Previous
@@ -100,6 +103,7 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
+                  {topFunction()}
                 }}
               >
                 Next
