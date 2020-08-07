@@ -14,8 +14,6 @@ class AllPosts extends Component {
   }
 
   render() {
-    console.log("This is AllPosts", this.state.searchQuery)
-
     return (
       <Layout>
         <Section>

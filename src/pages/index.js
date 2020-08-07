@@ -15,7 +15,6 @@ import MailingList from "../mailchimp/mailing-list"
 import { FcGallery } from "react-icons/fc"
 
 const IndexPage = ({ data }) => {
-  const page = data.site.siteMetadata
   return (
       <Layout>
         <SEO title="Home" />
@@ -24,7 +23,7 @@ const IndexPage = ({ data }) => {
           <Container>
             <Columns>
               <Column isSize='1/3'>  
-                  <img src="https://via.placeholder.com/350x225"/>
+                  <img alt="placeholder" src="https://via.placeholder.com/350x225"/>
               </Column>
               <Column>
                 <MailingList/>
@@ -35,7 +34,7 @@ const IndexPage = ({ data }) => {
         <Section>
           <Container>
             <Columns>
-            <Column isCentered isSize='1/3'>  
+              <Column isSize='1/3'>  
                 <Box className="content-centered">
                   <FcGallery size={80}/>
                     <h2>null for beginners</h2>

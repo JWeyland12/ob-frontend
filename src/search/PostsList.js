@@ -76,7 +76,6 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      // searchQuery: '',
                       first: null,
                       after: null,
                       last: 5,
@@ -84,7 +83,7 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
-                  {topFunction()}
+                  topFunction()
                 }}
               >
                 Previous
@@ -95,7 +94,6 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      // searchQuery: '',
                       first: 5,
                       after: posts.pageInfo.endCursor || null,
                       last: null,
@@ -103,7 +101,7 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
-                  {topFunction()}
+                  topFunction()
                 }}
               >
                 Next
@@ -135,10 +133,8 @@ const Posts = ({ searchQuery }) => {
   }
 
   if (loading) {
-    return null;
+    return 'Loading posts...';
   }
-
-  console.log(searchQuery)
 
   return (
     <PostList
