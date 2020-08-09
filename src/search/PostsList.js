@@ -2,6 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
 import { useQuery } from '@apollo/react-hooks';
+import { Button } from "bloomer"
 
 
 // This is the query that Apollo Client will send to the WP site.
@@ -72,11 +73,10 @@ const PostList = ({ data, error, loading, fetchMore }) => {
             })}        
           <div>
             {posts.pageInfo.hasPreviousPage ? (
-              <button
+              <Button isColor='primary'
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      // searchQuery: '',
                       first: null,
                       after: null,
                       last: 5,
@@ -84,18 +84,17 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
-                  {topFunction()}
+                  topFunction()
                 }}
               >
-                Previous
-              </button>
+                &laquo; Previous
+              </Button>
             ) : null}
             {posts.pageInfo.hasNextPage ? (
-              <button
+              <Button isColor='primary'
                 onClick={() => {
                   fetchMore({
                     variables: {
-                      // searchQuery: '',
                       first: 5,
                       after: posts.pageInfo.endCursor || null,
                       last: null,
@@ -103,11 +102,11 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                     },
                     updateQuery
                   });
-                  {topFunction()}
+                  topFunction()
                 }}
               >
-                Next
-              </button>
+                Next &raquo;
+              </Button>
             ) : null}
           </div>
         </div>
@@ -127,7 +126,8 @@ const Posts = ({ searchQuery }) => {
     before: null
   };
   const { data, error, loading, fetchMore } = useQuery(PostsQuery, {
-    variables
+    variables,
+    notifyOnNetworkStatusChange: true
   });
 
   if (error) {
@@ -135,10 +135,8 @@ const Posts = ({ searchQuery }) => {
   }
 
   if (loading) {
-    return null;
+    return 'Loading...';
   }
-
-  console.log(searchQuery)
 
   return (
     <PostList

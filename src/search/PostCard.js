@@ -26,7 +26,7 @@ return (
 				<h3 style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: title }} />
 				<p style={{ marginBottom: "1em", fontSize: ".9em", color: "grey" }}>Written by {authorName} on {formatDate(date)}</p>
 			</Container>
-			<Columns isCentered>
+			<Columns>
 				<Column isSize='1/4'>
 					{ featuredImage && // If a featured image exists, display it.
 						<img src={featuredImage.node.sourceUrl} alt={featuredImage.node.altText} className="post-card__image" />
