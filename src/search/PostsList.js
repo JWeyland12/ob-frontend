@@ -2,7 +2,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import PostCard from './PostCard';
 import { useQuery } from '@apollo/react-hooks';
-import { Button } from "bloomer"
+import { Button, Progress } from "bloomer"
 
 
 // This is the query that Apollo Client will send to the WP site.
@@ -13,8 +13,9 @@ const PostsQuery = gql`
     $last: Int
     $after: String
     $before: String
+    $tag: String
   ) {
-    posts(where: { search: $searchQuery }, first: $first, last: $last, after: $after, before: $before) {
+    posts(where: { search: $searchQuery, tag: $tag }, first: $first, last: $last, after: $after, before: $before) {
       pageInfo {
         hasNextPage
         hasPreviousPage
@@ -80,7 +81,8 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                       first: null,
                       after: null,
                       last: 5,
-                      before: posts.pageInfo.startCursor || null
+                      before: posts.pageInfo.startCursor || null,
+                      tag: null
                     },
                     updateQuery
                   });
@@ -98,7 +100,8 @@ const PostList = ({ data, error, loading, fetchMore }) => {
                       first: 5,
                       after: posts.pageInfo.endCursor || null,
                       last: null,
-                      before: null
+                      before: null,
+                      tag: null
                     },
                     updateQuery
                   });
@@ -117,9 +120,10 @@ const PostList = ({ data, error, loading, fetchMore }) => {
   );
 };
 
-const Posts = ({ searchQuery }) => {
+const Posts = ({ searchQuery, tag }) => {
   const variables = {
     searchQuery: searchQuery,
+    tag: tag,
     first: 5,
     last: null,
     after: null,
@@ -135,7 +139,7 @@ const Posts = ({ searchQuery }) => {
   }
 
   if (loading) {
-    return 'Loading...';
+    return <Progress isColor='primary' isSize='small' max={100} />;
   }
 
   return (

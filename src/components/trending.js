@@ -1,1 +1,0 @@
-// New component for homepage trending section

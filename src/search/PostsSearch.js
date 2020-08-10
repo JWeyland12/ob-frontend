@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Posts from './PostsList';
-import {
-  Input,
-} from "bloomer"
+import { Input } from "bloomer"
 
 class PostsSearch extends Component {
   state = {
@@ -33,7 +31,7 @@ class PostsSearch extends Component {
           />
         </form>
         {searchQuery &&
-          <Posts searchQuery={searchQuery} />
+          <Posts searchQuery={searchQuery}/>
         }
       </div>
     );

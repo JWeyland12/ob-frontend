@@ -17,11 +17,7 @@ const PostCard = ({post}) => {
 
 return (
 	<Box key={postId}>
-		<Link
-      // to={`/post/${post.node.slug}`} 
-      to={`/posts/` + slug}
-			style={{ color: "black", textDecoration: "none" }}
-		>
+		<Link to={`/posts/` + slug} style={{ color: "black", textDecoration: "none" }}>
 			<Container>
 				<h3 style={{ marginBottom: 0 }} dangerouslySetInnerHTML={{ __html: title }} />
 				<p style={{ marginBottom: "1em", fontSize: ".9em", color: "grey" }}>Written by {authorName} on {formatDate(date)}</p>

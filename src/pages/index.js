@@ -10,9 +10,11 @@ import {
   Column,
   Button,
   Box,
+  Title
 } from "bloomer"
 import MailingList from "../mailchimp/mailing-list"
 import { FcGallery } from "react-icons/fc"
+import Posts from "../search/PostsList"
 
 const IndexPage = ({ data }) => {
   return (
@@ -61,6 +63,12 @@ const IndexPage = ({ data }) => {
                 </Box>
               </Column>
             </Columns>
+          </Container>
+        </Section>
+        <Section>
+          <Container>
+            <Title isSpaced>Latest Posts</Title>
+            <Posts searchQuery={''}/>
           </Container>
         </Section>
       </Layout>
