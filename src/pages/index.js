@@ -35,6 +35,7 @@ const IndexPage = ({ data }) => {
         </Section>
         <Section>
           <Container>
+          <Title isSpaced>Popular Guides</Title>
             <Columns>
               <Column isSize='1/3'>  
                 <Box className="content-centered">
@@ -65,10 +66,10 @@ const IndexPage = ({ data }) => {
             </Columns>
           </Container>
         </Section>
-        <Section>
+        <Section className='homepage-posts'>
           <Container>
-            <Title isSpaced>Latest Posts</Title>
-            <Posts searchQuery={''}/>
+            <Title isSpaced>Featured Posts</Title>
+            <Posts searchQuery={''} tag={'featured'}/>
           </Container>
         </Section>
       </Layout>

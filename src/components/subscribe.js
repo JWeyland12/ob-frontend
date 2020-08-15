@@ -1,0 +1,1 @@
+// Component for homepage subscribe section
