@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import About from "../components/about"
 import {
   Section,
   Container,
@@ -72,6 +73,7 @@ const IndexPage = ({ data }) => {
             <Posts searchQuery={''} tag={'featured'}/>
           </Container>
         </Section>
+        <About/>
       </Layout>
   )
 }
