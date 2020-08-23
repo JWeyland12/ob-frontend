@@ -91,6 +91,7 @@ class CommentList extends React.Component {
                             <h3><strong>Comments</strong></h3>
                             {data.comments.nodes.map((d, idx) => (
                                 <div className="comment-container" key={idx}>
+                                    
                                     {/* Render parent comment. */}
                                     {generateComment(
                                       "parent-comment", 
@@ -99,15 +100,19 @@ class CommentList extends React.Component {
                                       d.author.node.name, 
                                       d.date, 
                                       d.content)}
+                                    {console.log(d.replies.edges)}
                                     {/* Render child/nested comment. */}
-                                    {(d.replies.edges.length >= 1) ? 
+                                    {(d.replies.edges.length >= 1) ?
+                                      d.replies.edges.map((c, icx) => (
+
                                     generateComment(
                                       "child-comment", 
-                                      d.replies.edges[0].node.commentId, 
-                                      d.replies.edges[0].node.author.node.url, 
-                                      d.replies.edges[0].node.author.node.name, 
-                                      d.replies.edges[0].node.date, 
-                                      d.replies.edges[0].node.content)
+                                      c.node.commentId, 
+                                      c.node.author.node.url, 
+                                      c.node.author.node.name, 
+                                      c.node.date, 
+                                      c.node.content)
+                                      ))
                                     : false}
                                 </div>
                             ))}   
