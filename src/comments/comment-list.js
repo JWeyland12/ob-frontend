@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import { Location } from '@reach/router';
 import moment from 'moment';
 import { Link } from 'gatsby';
+import { Progress } from "bloomer"
 
 // Create a GraphQL query for the comment list.
 const commentQuery = gql`
@@ -76,9 +77,10 @@ class CommentList extends React.Component {
             // Wrap the comment list in our query.
             <Query query={commentQuery} variables={{ postId }}>
                 {({ loading, error, data }) => {
+
                     // Loading and error messages.
-                    if (loading) return 'Loading comments...';
-                    if (error) return 'Error loading comments...';
+                    if (loading) return <Progress isColor='primary' isSize='small' max={100} />
+                    if (error) return 'Error loading comments...'; 
 
                     // If comments don't exist, then don't attempt to display them (prevents undefined error).
                     if (data.comments.nodes.length < 1) return false;

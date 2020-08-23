@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import About from "../components/about"
 import {
   Section,
   Container,
@@ -28,6 +29,10 @@ const IndexPage = ({ data }) => {
                   <img alt="placeholder" src="https://via.placeholder.com/350x225"/>
               </Column>
               <Column>
+                <div>
+                  <h1>Your null awaits!</h1>
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+                </div>
                 <MailingList/>
               </Column>
             </Columns>
@@ -72,6 +77,7 @@ const IndexPage = ({ data }) => {
             <Posts searchQuery={''} tag={'featured'}/>
           </Container>
         </Section>
+        <About/>
       </Layout>
   )
 }

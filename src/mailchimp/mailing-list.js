@@ -34,40 +34,36 @@ export default class MailingList extends React.Component {
     render() {
         return (
             <div>
-                <h1>Your null awaits!</h1>
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
-                <div>
-                    <form onSubmit={this._handleSubmit}>
-                        <FieldBody>
-                          <Field>
-                            <Control>
-                              <Input
-                                type="text"
-                                onChange={this._handleChange}
-                                placeholder="Your name"
-                                name="name"
-                              />
-                            </Control>
-                          </Field>
-                          <Field>
-                            <Control>
-                              <Input
-                                type="email"
-                                onChange={this._handleChange}
-                                placeholder="Your email"
-                                name="email"
-                              />
-                            </Control>
-                          </Field>
-                          <Field>
-                            <Control>
-                              <Button isColor='secondary' type="submit">Submit</Button>
-                            </Control>
-                          </Field>
-                        </FieldBody> 
-                    </form>
-                    <div id="output" ref='test'/>
-                </div>
+                <form onSubmit={this._handleSubmit}>
+                    <FieldBody>
+                      <Field>
+                        <Control>
+                          <Input
+                            type="text"
+                            onChange={this._handleChange}
+                            placeholder="Your name"
+                            name="name"
+                          />
+                        </Control>
+                      </Field>
+                      <Field>
+                        <Control>
+                          <Input
+                            type="email"
+                            onChange={this._handleChange}
+                            placeholder="Your email"
+                            name="email"
+                          />
+                        </Control>
+                      </Field>
+                      <Field>
+                        <Control>
+                          <Button isColor='secondary' type="submit">Submit</Button>
+                        </Control>
+                      </Field>
+                    </FieldBody> 
+                </form>
+                <div id="output" ref='test'/>
             </div>
         )
     }
