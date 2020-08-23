@@ -9,12 +9,11 @@ const MainFooter = () => {
       <Container>
         <Columns>
           <Column>
-          {/* Social icons */}
+            {/* Brand logo */}
+            <img alt="orchidboy logo" width="50%" src="https://storage.googleapis.com/opzsys_static/orchidboy_purple_text.png"/>
+            {/* Social icons */}
             <Content>
-              <p>
-                <p>{"Follow OrchidBoy.com"}</p>
-                <SocialIcons/>
-              </p>
+              <SocialIcons/>
             </Content>
             {/* Made with love by BrandName */}
             <Content>
@@ -62,6 +61,10 @@ const MainFooter = () => {
             </Content>
           </Column>
           <Column>
+            <div>
+              <h1>Your null awaits!</h1>
+              <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+            </div>
             <MailingList/>
           </Column>
         </Columns>

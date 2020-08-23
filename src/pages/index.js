@@ -29,6 +29,10 @@ const IndexPage = ({ data }) => {
                   <img alt="placeholder" src="https://via.placeholder.com/350x225"/>
               </Column>
               <Column>
+                <div>
+                  <h1>Your null awaits!</h1>
+                  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.</p>
+                </div>
                 <MailingList/>
               </Column>
             </Columns>
