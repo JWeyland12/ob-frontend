@@ -4,7 +4,8 @@ import { Query } from 'react-apollo';
 import { Location } from '@reach/router';
 import moment from 'moment';
 import { Link } from 'gatsby';
-import { Progress } from "bloomer"
+import { Progress } from "bloomer";
+import CommentForm from '../comments/comment-form';
 
 // Create a GraphQL query for the comment list.
 const commentQuery = gql`
@@ -78,12 +79,6 @@ class CommentList extends React.Component {
       </div>
     )
 
-    const parentCheck = (parent) => {
-      if (parent === null) {
-        console.log("There are no parent here")
-      }
-    }
-
     return (
       // Wrap the comment list in our query.
       <Query query={commentQuery} variables={{ postId }}>
@@ -107,7 +102,7 @@ class CommentList extends React.Component {
                     
                     {/* Generate parent comments */}
                     {data.comments.nodes.map((d, idx) => (
-                      <div className="real-container" key={idx}>
+                      <div className="comment-body-container" key={idx}>
                         {(d.parent === null) ?
                         (generateComment(
                           "parent-comment", 
@@ -133,7 +128,10 @@ class CommentList extends React.Component {
                             )
                           )
                         )
-                        : false}
+                        : null}
+                        {(d.parent === null) ?
+                          <CommentForm postId={this.props.postId} parent={d.commentId}/>
+                        : null}
                       </div>
                     ))}
                   </div> 
