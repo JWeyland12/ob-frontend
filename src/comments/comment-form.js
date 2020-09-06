@@ -5,12 +5,13 @@ import { Field, Label, Control, Input, Button, TextArea} from "bloomer"
 
 // Create a GraphQL mutation for comment submissions.
 const commentSubmitQuery = gql`
-	mutation($author: String, $commentOn: Int, $content: String, $authorEmail: String, $authorUrl: String) {
+	mutation($author: String, $commentOn: Int, $parent: ID, $content: String, $authorEmail: String, $authorUrl: String) {
 		createComment(
 			input: {
 				clientMutationId: "CreateComment"
 				author: $author
 				commentOn: $commentOn
+				parent: $parent
 				content: $content
 				authorEmail: $authorEmail
 				authorUrl: $authorUrl
@@ -29,6 +30,7 @@ class CommentForm extends React.Component {
 		this.state = {
 			commentStatus: false,
 			post: props.postId,
+			parent: props.parent,
 			comment: '',
 			author: '',
 			email: '',
@@ -79,6 +81,7 @@ class CommentForm extends React.Component {
 								variables: {
 									author: this.state.author,
 									commentOn: this.state.post,
+									parent: this.state.parent,
 									content: this.state.comment,
 									authorEmail: this.state.email,
 									authorUrl: this.state.url,

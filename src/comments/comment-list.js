@@ -4,7 +4,8 @@ import { Query } from 'react-apollo';
 import { Location } from '@reach/router';
 import moment from 'moment';
 import { Link } from 'gatsby';
-import { Progress } from "bloomer"
+import { Progress } from "bloomer";
+import CommentForm from '../comments/comment-form';
 
 // Create a GraphQL query for the comment list.
 const commentQuery = gql`
@@ -127,6 +128,9 @@ class CommentList extends React.Component {
                             )
                           )
                         )
+                        : null}
+                        {(d.parent === null) ?
+                          <CommentForm postId={this.props.postId} parent={d.commentId}/>
                         : null}
                       </div>
                     ))}
