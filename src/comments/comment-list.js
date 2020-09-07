@@ -103,7 +103,8 @@ class CommentList extends React.Component {
                     {/* Generate parent comments */}
                     {data.comments.nodes.map((d, idx) => (
                       <div className="comment-body-container" key={idx}>
-                        {(d.parent === null) ?
+                        {console.log("Parent", idx)}
+                        {(d.parent === null) &&
                         (generateComment(
                           "parent-comment", 
                           d.commentId, 
@@ -112,23 +113,24 @@ class CommentList extends React.Component {
                           d.date, 
                           d.content
                           )
-                        )
-                        : null}
+                        )}
                         
                         {/* Generate child comments */}
-                        {((d.parent === null) && (d.replies.edges.length >= 1)) ?
+                        {((d.parent === null) && (d.replies.edges.length >= 1)) &&
                           d.replies.edges.map((d, idx) => (
-                          generateComment(
-                            "child-comment", 
-                            d.node.commentId, 
-                            d.node.author.node.url, 
-                            d.node.author.node.name, 
-                            d.node.date, 
-                            d.node.content
-                            )
+                          <div key={idx}>
+                            {generateComment(
+                              "child-comment", 
+                              d.node.commentId, 
+                              d.node.author.node.url, 
+                              d.node.author.node.name, 
+                              d.node.date, 
+                              d.node.content
+                              )}
+                            {console.log("Child", idx)}
+                          </div>
                           )
-                        )
-                        : null}
+                        )}
                         {(d.parent === null) ?
                           <CommentForm postId={this.props.postId} parent={d.commentId}/>
                         : null}
