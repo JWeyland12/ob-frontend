@@ -51,10 +51,19 @@ query($postId: ID!) {
 
 // Main component class.
 class CommentList extends React.Component {
+
+  state = {
+    showing: false,
+    openId: '',
+    buttonText: 'Reply'
+  };
     
   // Render stuff.
   render() {
     const postId = this.props.postId;
+
+    // Showing is used to show/hide form
+    const { showing } = this.state;
 
     // Helper function for formatting dates with MomentJS.
     const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mma')
@@ -131,9 +140,22 @@ class CommentList extends React.Component {
                           </div>
                           )
                         )}
-                        {(d.parent === null) ?
-                          <CommentForm postId={this.props.postId} parent={d.commentId}/>
+
+                        {/* Handle button click*/}
+                        {d.parent === null ?
+                        <button onClick={() => this.setState({ showing: !showing, openId: d.commentId })}>
+                          {this.state.buttonText == "Cancel" ? "Reply" : "Reply"}
+                        </button> 
                         : null}
+
+                        {(showing && d.parent === null && this.state.openId === d.commentId)
+                          ? <CommentForm postId={this.props.postId} parent={d.commentId}/>
+                        : null}
+                         
+            
+                        {/* {(d.parent === null) ?
+                          <CommentForm postId={this.props.postId} parent={d.commentId}/>
+                        : null} */}
                       </div>
                     ))}
                   </div> 
