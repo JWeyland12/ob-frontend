@@ -54,8 +54,7 @@ class CommentList extends React.Component {
 
   state = {
     showing: false,
-    openId: '',
-    buttonText: 'Reply'
+    openId: ''
   };
     
   // Render stuff.
@@ -63,7 +62,7 @@ class CommentList extends React.Component {
     const postId = this.props.postId;
 
     // Showing is used to show/hide form
-    const { showing } = this.state;
+    const { showing, openId } = this.state;
 
     // Helper function for formatting dates with MomentJS.
     const formatDate = date => moment(date).format('MMMM Do, YYYY [at] h:mma')
@@ -100,7 +99,6 @@ class CommentList extends React.Component {
           // If comments don't exist, then don't attempt to display them (prevents undefined error).
           if (data.comments.nodes.length < 1) return false;
           if (data.comments.nodes.parent < 1) return false;
-          console.log("beep", data.comments)
 
             return (	
               // Display the comment list.
@@ -111,8 +109,7 @@ class CommentList extends React.Component {
                     
                     {/* Generate parent comments */}
                     {data.comments.nodes.map((d, idx) => (
-                      <div className="comment-body-container" key={idx}>
-                        {console.log("Parent", idx)}
+                      <div className={"comment-body-container"} key={idx}>
                         {(d.parent === null) &&
                         (generateComment(
                           "parent-comment", 
@@ -136,26 +133,22 @@ class CommentList extends React.Component {
                               d.node.date, 
                               d.node.content
                               )}
-                            {console.log("Child", idx)}
                           </div>
                           )
                         )}
 
                         {/* Handle button click*/}
-                        {d.parent === null ?
-                        <button onClick={() => this.setState({ showing: !showing, openId: d.commentId })}>
-                          {this.state.buttonText == "Cancel" ? "Reply" : "Reply"}
-                        </button> 
+                        {(d.parent === null && openId !== d.commentId) ?
+                          <button onClick={() => this.setState({ showing: true, openId: d.commentId })}>
+                            {(showing && (openId === d.commentId) ? "Reply" : "Reply")}
+                          </button> 
                         : null}
 
-                        {(showing && d.parent === null && this.state.openId === d.commentId)
+                        {/* Display comment form*/}
+                        {(showing === true && d.parent === null && openId === d.commentId)
                           ? <CommentForm postId={this.props.postId} parent={d.commentId}/>
                         : null}
-                         
-            
-                        {/* {(d.parent === null) ?
-                          <CommentForm postId={this.props.postId} parent={d.commentId}/>
-                        : null} */}
+
                       </div>
                     ))}
                   </div> 
