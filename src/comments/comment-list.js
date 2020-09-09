@@ -51,11 +51,27 @@ query($postId: ID!) {
 
 // Main component class.
 class CommentList extends React.Component {
-
-  state = {
+  constructor(props) {
+    super(props);
+    
+  // Bind the this context to input changes
+  this.handler = this.handler.bind(this);
+  
+  // Set the initial state.
+  this.state = {
     showing: false,
     openId: ''
   };
+};
+
+  // This method will be sent to the child component
+  handler() {
+    this.setState({
+        showing: false
+  });
+}
+
+
     
   // Render stuff.
   render() {
@@ -138,7 +154,7 @@ class CommentList extends React.Component {
                         )}
 
                         {/* Handle button click*/}
-                        {(d.parent === null && openId !== d.commentId) ?
+                        {((d.parent === null && openId !== d.commentId) || (d.parent === null && this.state.showing === false)) ?
                           <button onClick={() => this.setState({ showing: true, openId: d.commentId })}>
                             {(showing && (openId === d.commentId) ? "Reply" : "Reply")}
                           </button> 
@@ -146,7 +162,7 @@ class CommentList extends React.Component {
 
                         {/* Display comment form*/}
                         {(showing === true && d.parent === null && openId === d.commentId)
-                          ? <CommentForm postId={this.props.postId} parent={d.commentId}/>
+                          ? <CommentForm postId={this.props.postId} parent={d.commentId} action={this.handler}/>
                         : null}
 
                       </div>

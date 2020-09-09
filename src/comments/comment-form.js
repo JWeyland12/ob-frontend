@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import { Field, Label, Control, Input, Button, TextArea} from "bloomer"
 
-// Create a GraphQL mutation for comment submissions.
+// Create a GraphQL mutation for comment submissions
 const commentSubmitQuery = gql`
 	mutation($author: String, $commentOn: Int, $parent: ID, $content: String, $authorEmail: String, $authorUrl: String) {
 		createComment(
@@ -22,11 +22,15 @@ const commentSubmitQuery = gql`
 	}
 `;
 
-// Our main component class.
+// Our main component class
 class CommentForm extends React.Component {
 	constructor(props) {
-		super(props);
-		// Set the initial state.
+    super(props);
+
+    // Bind input changes
+		this.handleInputChange = this.handleInputChange.bind(this);
+    
+		// Set the initial state
 		this.state = {
 			commentStatus: false,
 			post: props.postId,
@@ -36,47 +40,44 @@ class CommentForm extends React.Component {
 			email: '',
 			url: '',
 		};
-
-		// Bind input changes.
-		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
-	// Handles input change events.
+	// Handles input change events
 	handleInputChange(event) {
 		const target = event.target;
 		const value = event.type === 'checkbox' ? target.checked : target.value;
 		const name = target.name;
 
-		// Sets the state of the input field.
+		// Sets the state of the input field
 		this.setState({
 			[name]: value,
 		});
 	}
 
-	// Renders the comment form elements.
+	// Renders the comment form elements
 	renderCommentForm() {
 		return (
-			// Wrap it in our mutation.
+			// Wrap it in our mutation
 			<Mutation
 				mutation={commentSubmitQuery}
-				// Set completion state.
+				// Set completion state
 				onCompleted={() => {
 					this.setState({ commentStatus: 'success' });
 				}}
-				// Set error state.
+				// Set error state
 				onError={() => {
 					this.setState({ commentStatus: 'error' });
 				}}
 			>
 				{(addComment) => (
-					// Render the form.
+					// Render the form
 					<form className="comment-form"
 						onSubmit={(event) => {
-							// Prevent default form submit behavior.
+							// Prevent default form submit behavior
 							event.preventDefault();
-							// Set initial loading state on submission.
+							// Set initial loading state on submission
 							this.setState({ commentStatus: 'loading' });
-							// Run the mutation.
+							// Run the mutation
 							addComment({
 								variables: {
 									author: this.state.author,
@@ -124,7 +125,7 @@ class CommentForm extends React.Component {
 								<Button name="submit" type="submit" value="Post Comment">Submit</Button>
 							</Control>
 							<Control>
-								<Button isLink>Cancel</Button>
+								<Button isLink onClick={this.props.action}>Cancel</Button>
 							</Control>
 						</Field>
 					</form>
@@ -133,9 +134,9 @@ class CommentForm extends React.Component {
 		);
 	}
 
-	// Render the comment form.
+	// Render the comment form
 	render() {
-		// Check comment status from component state and display messages or form.
+		// Check comment status from component state and display messages or form
 		switch (this.state.commentStatus) {
 			case 'success':
 				return 'Your comment has been successfully submitted.';
