@@ -169,6 +169,9 @@ class CommentList extends React.Component {
                     ))}
                   </div> 
                 </div>  
+                {(showing === false) 
+                  ? <CommentForm postId={this.props.postId} parent={null} action={this.handler}/>
+                : null}
               </>
             );
           }}

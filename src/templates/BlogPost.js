@@ -4,7 +4,6 @@ import Img from "gatsby-image"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import SocialIcons from "../components/icons"
-import CommentForm from '../comments/comment-form';
 import CommentList from '../comments/comment-list';
 import {
   Section,
@@ -43,7 +42,6 @@ const BlogPostTemplate = ({ data }) => (
               dangerouslySetInnerHTML={{ __html: data.wordpressPost.content }}
             />
           <CommentList postId={data.wordpressPost.wordpress_id} />
-          <CommentForm postId={data.wordpressPost.wordpress_id} />
           </Column>
           <Column hasTextAlign='centered' isOffset='8'>
             <SocialIcons/>

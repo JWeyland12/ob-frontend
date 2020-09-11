@@ -739,7 +739,7 @@ pre tt:after {
 // Comments formatting
 .comment-list {
   margin: 0px 0px 40px 0px;
-  padding: 0px 0px 20px 40px;
+  padding: 0px 40px 20px 40px;
   background-color: #f5f5f5;
 }
 .comment-author {
@@ -753,7 +753,7 @@ pre tt:after {
 .parent-comment {
   border-right: none;
   padding: 40px 40px 20px 40px;
-  margin: 0px 0px 0px -40px;
+  margin: 0px -40px 0px -40px;
   border-top: 20px solid #fff;
 }
 .child-comment {
